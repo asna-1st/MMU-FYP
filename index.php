@@ -8,11 +8,9 @@
 
 <body>
     <form>
-        <div class="mb-3 row">
-            <label class="col-form-label col-sm-2">Email</label>
-            <div class="col-sm-10">
-                <input class="form-control" type="email" id="email"></input>
-            </div>
+        <div class="mb-3">
+            <label>Email</label><br>
+            <input class="form-control" type="email" id="email"></input>
         </div>
         <br>
         <label>Password</label><br>
