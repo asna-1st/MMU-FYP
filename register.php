@@ -71,18 +71,53 @@ if(isset($_POST["btn-register"])){
     $pass = $_POST["pass"];
     $repass = $_POST["repass"];
     $salt = "123me";
+    $row = null;
+    $cPass = false;
+    $cUsername = false;
+    $cEmail = false;
 
-    if($pass == $repass){
+    /* if($pass == $repass){
         print "Same";
-        $result = mysqli_query($connect, "SELECT * FROM user WHERE email = '{$email}'");
+        $result = mysqli_query($connect, "SELECT * FROM user WHERE user_email = '{$email}'");
         if (!$result || !$row = mysqli_fetch_assoc($result)){
-            echo 'yes';
-            mysqli_query($connect, "INSERT INTO user (user_username, user_password, user_email) VALUES ('$username', '$pass', '$email')");
+
+            $result = mysqli_query($connect, "SELECT * FROM user WHERE user_username = '{$username}'");
+            if (!$result || !$row = mysqli_fetch_assoc($result)){
+                echo 'yes';
+            } else {
+                echo 'no';
+            }
         } else {
             echo 'no';
         }
     } else {
         print "Not Same";
+    } */
+
+    if($pass == $repass){
+        $cPass = true;
+    } else {
+        echo 'Password enterd not same!';
     }
+
+    $result = mysqli_query($connect, "SELECT * FROM user WHERE user_email = '{$email}'");
+    if(!$result || !$row = mysqli_fetch_assoc($result)){
+        $cEmail = true;
+    } else {
+        echo '\nEmail already exist!';
+    }
+
+    $result = mysqli_query($connect, "SELECT * FROM user WHERE user_username = '{$username}'");
+    if(!$result || !$row = mysqli_fetch_assoc($result)){
+        $cUsername = true;
+    } else {
+        echo '\nUsername already exist!';
+    }
+
+    if($cPass == true && $cUsername == true && $cEmail == true){
+        mysqli_query($connect, "INSERT INTO user (user_username, user_password, user_email) VALUES ('$username', '$pass', '$email')");
+    }
+
+    mysqli_close($connect);
 }
 ?>
