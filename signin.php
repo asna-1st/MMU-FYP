@@ -45,6 +45,12 @@ body {
     <label class="h3 mb-3 font-weight-normal">Please Sign In</label>
     <?php
         include("./dbconnect.php");
+        session_start();
+
+        if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
+            header("location: home.php");
+            exit;
+        }
 
         $cPass = true;
         $cUser = true;
@@ -57,6 +63,12 @@ body {
             if(!$result || $row = mysqli_fetch_assoc($result)){
                 if($pass == $row["user_password"]){
                     $cPass = true;
+                    session_start();
+
+                    $_SESSION["loggedin"] = true;
+                    $_SESSION["id"] = $row["user_ID"];
+                    $_SESSION["username"] = $row["user_username"];
+                    header("location: home.php");
                 } else {
                     $cPass = false;
                     echo '<script type="text/javascript">
