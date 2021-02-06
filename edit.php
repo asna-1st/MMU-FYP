@@ -22,10 +22,12 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
             position: relative;
             min-height: 100%;
         }
+
         body {
             /* Margin bottom by footer height */
             margin-bottom: 60px;
         }
+
         .footer {
             position: absolute;
             bottom: 0;
@@ -55,7 +57,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#">Home</a>
+                            <a class="nav-link" aria-current="page" href="#">Home</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" aria-current="page" href="create.php">Create</a>
@@ -76,37 +78,10 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
                 </div>
             </div>
         </nav>
+
         <div class="container">
             <div class="row">
-                <div class="col-md-8" style="margin-top: 30px;">
-                    <h1>Welcome <?php echo $username ?>!</h1>
-                </div>
-            </div>
-            <div class="row" style="margin-top: 50px;">
-                <div class="col-sm-10" style="margin-bottom: 20px;">
-                    <h3>Last Saved Note</h3>
-                </div>
-<!--                 <div class="col-sm-6 py-2">
-                    <div class="card mb-4">
-                        <div class="card-body">
-                            <h5 class="card-title">dummy1</h5>
-                            <p class="card-text textoverflow">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                            <button type="button" class="btn btn-primary" style="float: right;">View</button>
-                        </div>
-                    </div>
-                </div> -->
-                <?php
-                    $result = mysqli_query($connect, "SELECT * FROM note WHERE user_ID = '$id' ORDER BY note_lastsave DESC LIMIT 4");
-                    while($row = mysqli_fetch_array($result)){
-                        echo '<div class="col-sm-6">';
-                        echo '<div class="card mb-4">';
-                        echo '<div class="card-body">';
-                        echo '<h5 class="card-title textoverflow">'.$row["note_title"].'</h5>';
-                        echo '<p class="card-text"><label>Last Saved: '.$row["note_lastsave"].'</label></p>';
-                        echo '<button type="button" class="btn btn-primary" style="float: right;">View</button>';
-                        echo '</div></div></div>';
-                    }
-                ?>
+
             </div>
         </div>
 
