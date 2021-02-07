@@ -79,6 +79,11 @@ $total_page = ceil($total_row / $rowperpage);
             margin: 2px;
         }
         </style>
+        <script>
+            function deleteAction(noteid) {
+                document.getElementById("delVal").value = noteid.toString();
+            }
+        </script>
     </head>
 
     <body>
@@ -125,7 +130,7 @@ $total_page = ceil($total_row / $rowperpage);
                             <?php
                                 switch($orderby){
                                     case 1:
-                                        $sql = "SELECT * FROM note WHERE user_ID = ".$id." ORDER BY LENGTH(note_title), note_title LIMIT ".$start.", ".$rowperpage;
+                                        $sql = "SELECT * FROM note WHERE user_ID = ".$id." ORDER BY CAST(note_title AS UNSIGNED), note_title ASC LIMIT ".$start.", ".$rowperpage;
                                         echo '<li class="breadcrumb-item active">A-Z</li>';
                                         echo '<li class="breadcrumb-item"><a href="?order=2">Newest</a></li>';
                                         echo '<li class="breadcrumb-item"><a href="?porder=3">Oldest</a></li>';
@@ -167,7 +172,9 @@ $total_page = ceil($total_row / $rowperpage);
                                     echo '<th scope="row">'.($num).'</th>';
                                     echo '<td class="textoverflow"><span>'.$row["note_title"].'</span></td>';
                                     echo '<td>'.$row["note_lastsave"].'</td>';
-                                    echo '<td><button class="gridbutton btn btn-success">View</button><button class="gridbutton btn btn-primary">Edit</button><button class="gridbutton btn btn-danger">Delete</button></td>';
+                                    echo '<td><a href="view.php?id='.$row["note_id"].'" class="gridbutton btn btn-success" role="button">View</a>
+                                    <a href="edit.php?id='.$row["note_id"].'" role="button" class="gridbutton btn btn-primary">Edit</a>
+                                    <button onclick="deleteAction('.$row["note_id"].')" class="gridbutton btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteError">Delete</button></td>';
                                     echo '</tr>';
                                     $num++;
                                 }
@@ -188,10 +195,30 @@ $total_page = ceil($total_row / $rowperpage);
                                     echo '<li class="page-item"><a class="page-link" href="?page='.$i.'&order='.$orderby.'">'.$i.'</a></li>';
                                 }
                             }
-                            mysqli_close($connect);
                         ?>
                     </ul>
                 </nav>
+            </div>
+            <!-- Modal -->
+            <div class="modal fade" id="deleteError" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="deleteErrorLabel" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="deleteErrorLabel">Warning</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <p>Are you sure to delete this note?</p>
+                        </div>
+                        <div class="modal-footer">
+                            <form id="delForm" name="delForm" action="list.php" method="post">
+                                <button type="submit" name="btnDel" class="btn btn-danger">Yes</button>
+                                <input type="hidden" name="delVal" id="delVal" />
+                            </form>
+                            <button type="button" class="btn btn-primary" data-bs-dismiss="modal">No</button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -202,3 +229,16 @@ $total_page = ceil($total_row / $rowperpage);
         </footer>
     </body>
 </html>
+
+<?php
+    if(isset($_POST["btnDel"])){
+        $delID = $_POST["delVal"];
+        $result = mysqli_query($connect, "DELETE FROM note WHERE note_id = '$delID'");
+        if($result != TRUE) {
+            echo '<script>alert("Having problem with deleting the note!");</script>';
+        } else {
+            echo '<script>window.location.href = "list.php";</script>';
+        }
+    }
+    mysqli_close($connect);
+?>

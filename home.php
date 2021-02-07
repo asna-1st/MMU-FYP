@@ -23,9 +23,9 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
             min-height: 100%;
         }
         body {
-            /* Margin bottom by footer height */
             margin-bottom: 60px;
         }
+
         .footer {
             position: absolute;
             bottom: 0;
@@ -97,13 +97,23 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
                 </div> -->
                 <?php
                     $result = mysqli_query($connect, "SELECT * FROM note WHERE user_ID = '$id' ORDER BY note_lastsave DESC LIMIT 4");
-                    while($row = mysqli_fetch_array($result)){
+                    if(mysqli_num_rows($result) > 0) {
+                        while($row = mysqli_fetch_array($result)){
+                            echo '<div class="col-sm-6">';
+                            echo '<div class="card mb-4">';
+                            echo '<div class="card-body">';
+                            echo '<h5 class="card-title textoverflow">'.$row["note_title"].'</h5>';
+                            echo '<p class="card-text"><label>Last Saved: '.$row["note_lastsave"].'</label></p>';
+                            echo '<a href="view.php?id='.$row["note_id"].'" type="button" class="btn btn-primary" style="float: right;">View</a>';
+                            echo '<a href="edit.php?id='.$row["note_id"].'" type="button" class="btn btn-primary" style="float: right; margin-right: 10px;">Edit</a>';
+                            echo '</div></div></div>';
+                        }
+                    } else {
                         echo '<div class="col-sm-6">';
                         echo '<div class="card mb-4">';
                         echo '<div class="card-body">';
-                        echo '<h5 class="card-title textoverflow">'.$row["note_title"].'</h5>';
-                        echo '<p class="card-text"><label>Last Saved: '.$row["note_lastsave"].'</label></p>';
-                        echo '<button type="button" class="btn btn-primary" style="float: right;">View</button>';
+                        echo '<h5 class="card-title textoverflow">No available note currently</h5>';
+                        echo '<p class="card-text"><label></label></p>';
                         echo '</div></div></div>';
                     }
                 ?>

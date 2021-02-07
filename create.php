@@ -18,14 +18,14 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/js/all.min.js" integrity="sha512-UwcC/iaz5ziHX7V6LjSKaXgCuRRqbTp1QHpbOJ4l1nw2/boCfZ2KlFIqBUA/uRVF0onbREnY9do8rM/uT/ilqw==" crossorigin="anonymous"></script>
         <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
-        <script src="create.js"></script>
-        <link href="create.css" rel="stylesheet">
+        <script src="./notelib.js"></script>
+        <link href="./notelib.css" rel="stylesheet">
     </head>
 
     <body onload="enableEdit();">
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <div class="container-fluid">
-                <a class="navbar-brand" href="#">Notepad</a>
+                <a class="navbar-brand" href="home.php">Notepad</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -55,12 +55,12 @@
         </nav>
 
         <div class="container" style="padding-top: 20px;">
-            <form method="post" action="create.php">
+            <form name="content-form" method="post" action="create.php">
                 <div class="row">
                     <div class="col-md-auto">
                         <div class="input-group" style="margin-bottom: 10px;">
-                            <input type="text" size="100" name="title" id="titleText" placeholder="Title" class="form-control"/>
-                            <button onclick="getContent();" style="font-size: 0.8em;" type="submit" name="btn-save" id="titleText" class="btn btn-success">Save</button>
+                            <input type="text" size="100" name="titleText" id="titleText" placeholder="Title" class="form-control"/>
+                            <button onclick="emptyTitle(event); getContent();" style="font-size: 0.8em;" type="submit" name="btn-save" id="titleText" class="btn btn-success">Save</button>
                         </div>
                     </div>
                     <div class="tool col-md-auto">
@@ -100,9 +100,8 @@
                                 <button type="button" class="btn btn-light" onclick="execCmd('insertHorizontalRule');"><i class="fas fa-arrows-alt-h"></i></button>
                             </div>
                             <div class="btn-group me-2" role="group">   
-                                <button type="button" class="btn btn-light" onclick="execCommandArg('createLink', prompt('Enter URL'));"><i class="fas fa-link"></i></button>
+                                <button type="button" class="btn btn-light" onclick="insertLink(prompt('Enter URL'));"><i class="fas fa-link"></i></button>
                                 <button type="button" class="btn btn-light" onclick="execCmd('unlink');"><i class="fas fa-unlink"></i></button>
-                                <button type="button" class="btn btn-light" onclick="toggleSource();"><i class="fas fa-code"></i></button>
                                 <button type="button" class="btn btn-light" onclick="execCommandArg('insertImage', prompt('Enter image URL'));"><i class="fas fa-file-image"></i></button>
                             </div>
                             <div class="input-group me-2">
@@ -154,8 +153,26 @@
                 </div>
                 <div class="col-md-auto" style="padding-bottom: 10px; height: calc(100vh - 280px); width: 100%; overflow-inline: hidden;">
                     <iframe id="richTextArea" name="richTextArea"></iframe>
+                    <input type="hidden" id="noteContent" name="noteContent"/>
                 </div>
             </form>
+            <!-- Modal -->
+            <div class="modal fade" id="titleError" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="titleErrorLabel" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="titleErrorLabel">Warning</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <p>Please put your title</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <footer class="footer mt-auto clearfix bg-light">
@@ -170,12 +187,13 @@
 include("./dbconnect.php");
 
 if(isset($_POST["btn-save"])){
-    $title = $_POST["title"];
-    $content = $_COOKIE["tempNote"];
+    $title = $_POST["titleText"];
+    $content = $_POST["noteContent"];
     $row = null;
     
-    if($_POST["title"] != ""){
+    if($_POST["titleText"] != ""){
         mysqli_query($connect, "INSERT INTO note (note_title, note_content, note_lastsave, user_id) VALUES ('$title', '$content', CURRENT_TIMESTAMP, '$id')");
+        echo '<script>window.location.href = "home.php"</script>';
     }
 }
 ?>
