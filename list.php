@@ -35,50 +35,7 @@ $total_page = ceil($total_row / $rowperpage);
         <title>Home Page</title>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
-        <style>
-        html {
-            position: relative;
-            min-height: 100%;
-        }
-
-        body {
-            /* Margin bottom by footer height */
-            margin-bottom: 60px;
-        }
-
-        .footer {
-            position: absolute;
-            bottom: 0;
-            width: 100%;
-            height: 60px;
-            line-height: 60px;
-            color: black;
-            background-color: #f5f5f5;
-        }
-
-        .textoverflow {
-            position: relative;
-        }
-
-        .textoverflow::before {
-            content: '&nbsp;';
-            visibility: hidden;
-        }
-
-        .textoverflow span {
-            position: absolute;
-            left: 0;
-            right: 0;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            margin-left: 8px;
-        }
-
-        .gridbutton {
-            margin: 2px;
-        }
-        </style>
+        <link href="./design.css" rel="stylesheet">
         <script>
             function deleteAction(noteid) {
                 document.getElementById("delVal").value = noteid.toString();
@@ -94,7 +51,7 @@ $total_page = ceil($total_row / $rowperpage);
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    <ul class="navbar-nav mb-2 mb-lg-0">
                         <li class="nav-item">
                             <a class="nav-link" aria-current="page" href="home.php">Home</a>
                         </li>
@@ -104,11 +61,13 @@ $total_page = ceil($total_row / $rowperpage);
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="page" href="list.php">Notes</a>
                         </li>
+                    </ul>
+                    <ul class="navbar-nav ms-auto mb-lg-0">
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <a class="nav-link dropdown-toggle " href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 <?php echo $username; ?>
                             </a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown">
                                 <li><a class="dropdown-item" href="#">Settings</a></li>
                                 <li><a class="dropdown-item" href="logout.php">Logout</a></li>
                             </ul>
@@ -170,7 +129,7 @@ $total_page = ceil($total_row / $rowperpage);
                                 while($row = mysqli_fetch_array($data)){
                                     echo '<tr>';
                                     echo '<th scope="row">'.($num).'</th>';
-                                    echo '<td class="textoverflow"><span>'.$row["note_title"].'</span></td>';
+                                    echo '<td class="textoverflowlist"><span>'.$row["note_title"].'</span></td>';
                                     echo '<td>'.$row["note_lastsave"].'</td>';
                                     echo '<td><a href="view.php?id='.$row["note_id"].'" class="gridbutton btn btn-success" role="button">View</a>
                                     <a href="edit.php?id='.$row["note_id"].'" role="button" class="gridbutton btn btn-primary">Edit</a>
