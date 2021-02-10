@@ -79,10 +79,10 @@ $total_page = ceil($total_row / $rowperpage);
 
         <div class="container justify-content-center">
             <div class="row">
-                <div class="col-md-20" style="margin-top: 20px; margin-bottom: 10px;">
+                <div class="col-md-8" style="margin-top: 20px; margin-bottom: 10px;">
                     <h1>List of Notes</h1>
                 </div>
-                <div class="col-md-10">
+                <div class="col-md-12">
                     <nav style="--bs-breadcrumb-divider: none;" aria-label="breadcrumb">
                         <ol class="breadcrumb">
                             <label>Sort By: &nbsp;</label>
@@ -90,19 +90,19 @@ $total_page = ceil($total_row / $rowperpage);
                                 switch($orderby){
                                     case 1:
                                         $sql = "SELECT * FROM note WHERE user_ID = ".$id." ORDER BY CAST(note_title AS UNSIGNED), note_title ASC LIMIT ".$start.", ".$rowperpage;
-                                        echo '<li class="breadcrumb-item active">A-Z</li>';
+                                        echo '<li class="breadcrumb-item active" aria-current="page">A-Z</li>';
                                         echo '<li class="breadcrumb-item"><a href="?order=2">Newest</a></li>';
                                         echo '<li class="breadcrumb-item"><a href="?porder=3">Oldest</a></li>';
                                         break;
                                     case 2:
                                         $sql = "SELECT * FROM note WHERE user_ID = '$id' ORDER BY note_lastsave DESC LIMIT ".$start.", ".$rowperpage;
-                                        echo '<li class="breadcrumb-item active"><a href="?order=1">A-Z</a></li>';
+                                        echo '<li class="breadcrumb-item active" aria-current="page"><a href="?order=1">A-Z</a></li>';
                                         echo '<li class="breadcrumb-item">Newest</li>';
                                         echo '<li class="breadcrumb-item"><a href="?order=3">Oldest</a></li>';
                                         break;
                                     case 3:
                                         $sql = "SELECT * FROM note WHERE user_ID = '$id' ORDER BY note_lastsave ASC LIMIT ".$start.", ".$rowperpage;;
-                                        echo '<li class="breadcrumb-item active"><a href="?order=1">A-Z</a></li>';
+                                        echo '<li class="breadcrumb-item active" aria-current="page"><a href="?order=1">A-Z</a></li>';
                                         echo '<li class="breadcrumb-item"><a href="?order=2">Newest</a></li>';
                                         echo '<li class="breadcrumb-item">Oldest</li>';
                                         break;
@@ -111,8 +111,7 @@ $total_page = ceil($total_row / $rowperpage);
                         </ol>
                     </nav>
                 </div>
-                </div>
-                <div class="col-md-20 table-responsive-md">
+                <div class="col-md-12 table-responsive-md">
                     <table class="table table-hover table-bordered justify-content-center">
                         <thead>
                             <tr>
@@ -143,7 +142,7 @@ $total_page = ceil($total_row / $rowperpage);
                 </div>
             </div>
 
-            <div class="col-md-10">
+            <div class="col-md-12">
                 <nav aria-label="Page Navigation">
                     <ul class="pagination justify-content-center" style="padding-bottom: 20px;">
                         <?php
