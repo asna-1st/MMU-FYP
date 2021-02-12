@@ -18,7 +18,7 @@ if(isset($_GET["page"])){
 
 $rowperpage = 10;
 $start = ($pageno - 1) * $rowperpage;
-$result = mysqli_query($connect, "SELECT COUNT(*) FROM note WHERE user_ID = '$id'");
+$result = mysqli_query($connect, "SELECT COUNT(*) FROM user");
 $total_row = mysqli_fetch_array($result)[0];
 $total_page = ceil($total_row / $rowperpage);
 ?>
@@ -84,10 +84,10 @@ $total_page = ceil($total_row / $rowperpage);
                             <a class="nav-link" aria-current="page" href="home.php">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#">Users</a>
+                            <a class="nav-link active" aria-current="page" href="users.php">Users</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" aria-current="page" href="#">Notes</a>
+                            <a class="nav-link" aria-current="page" href="list.php">Notes</a>
                         </li>
                     </ul>
                     <ul class="navbar-nav ms-auto mb-lg-0">
@@ -106,10 +106,10 @@ $total_page = ceil($total_row / $rowperpage);
         </nav>
         <div class="container justify-content-center">
             <div class="row">
-                <div class="col-md-8" style="margin-top: 20px;">
+                <div class="col-md-8" style="margin-top: 20px; margin-bottom: 20px;">
                     <h1>Users List</h1>
                 </div>
-                <div class="col-md-12 table-responsive-md py-3">
+                <div class="col-md-12 table-responsive-md">
                     <table class="table table-hover table-bordered justify-content-center">
                         <thead>
                             <tr>
@@ -128,7 +128,7 @@ $total_page = ceil($total_row / $rowperpage);
                                     echo '<th scope="row">'.($num).'</th>';
                                     echo '<td class="textoverflowlist"><span>'.$row["user_username"].'</span></td>';
                                     echo '<td class="textoverflowlist"><span>'.$row["user_email"].'</span></td>';
-                                    echo '<td><a href="#" class="btn btn-primary gridbutton" role="button">Notes</a>
+                                    echo '<td><a href="usernote.php?id='.$row["user_ID"].'" class="btn btn-primary gridbutton" role="button">Note</a>
                                     <button class="btn btn-success gridbutton" data-bs-toggle="modal" data-bs-target="#editUser" onclick="getUserInfo('.$row["user_ID"].', `'.$row["user_username"].'`, `'.$row["user_email"].'`);" type="button">Edit</button>
                                     <button class="btn btn-danger gridbutton" data-bs-toggle="modal" data-bs-target="#removeUser" onclick="removeUser('.$row["user_ID"].');">Remove</a>
                                     </td>';
@@ -140,7 +140,23 @@ $total_page = ceil($total_row / $rowperpage);
                     </table>
                 </div>
             </div>
+            <div class="col-md-12">
+                <nav aria-label="Page Navigation">
+                    <ul class="pagination justify-content-center" style="padding-bottom: 20px;">
+                        <?php
+                            for($i=1; $i<=$total_page; $i++){
+                                if($pageno == $i){
+                                    echo '<li class="page-item active"><a class="page-link" href="?page='.$i.'">'.$i.'</a></li>';
+                                } else {
+                                    echo '<li class="page-item"><a class="page-link" href="?page='.$i.'">'.$i.'</a></li>';
+                                }
+                            }  
+                        ?>
+                    </ul>
+                </nav>
+            </div>
         </div>
+        
          <!-- Modal -->
          <div class="modal fade" id="editUser" data-bs-toggle="modal" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="editUserLabel" tabindex="-1" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">

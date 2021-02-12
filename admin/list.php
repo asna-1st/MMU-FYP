@@ -19,20 +19,13 @@ if(isset($_GET["page"])){
 if(isset($_GET["order"])){
     $orderby = $_GET["order"];
 } else {
-    $orderby = 1;
+    $orderby = 2;
 }
-
-if(isset($_GET["id"])){
-    $id = $_GET["id"];
-} else {
-    echo "Error Occurred!";
-}
-
 
 
 $rowperpage = 10;
 $start = ($pageno - 1) * $rowperpage;
-$result = mysqli_query($connect, "SELECT COUNT(*) FROM note WHERE user_ID = '$id'");
+$result = mysqli_query($connect, "SELECT COUNT(*) FROM note");
 $total_row = mysqli_fetch_array($result)[0];
 $total_page = ceil($total_row / $rowperpage);
 ?>
@@ -61,13 +54,13 @@ $total_page = ceil($total_row / $rowperpage);
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link" aria-current="page" href="#">Home</a>
+                            <a class="nav-link" href="home.php">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" aria-current="page" href="users.php">Users</a>
+                            <a class="nav-link" href="users.php">Users</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" aria-current="page" href="#">Notes</a>
+                            <a class="nav-link active" aria-current="page" href="list.php">Notes</a>
                         </li>
                     </ul>
                     <ul class="navbar-nav ms-auto mb-lg-0">
@@ -87,7 +80,7 @@ $total_page = ceil($total_row / $rowperpage);
         <div class="container">
             <div class="row">
                 <div class="col-md-8" style="margin-top: 20px;">
-                    <h1>Users Note</h1>
+                    <h1>Note</h1>
                 </div>
                 <div class="col-md-8">
                     <nav style="--bs-breadcrumb-divider: none;" aria-label="breadcrumb">
@@ -96,21 +89,21 @@ $total_page = ceil($total_row / $rowperpage);
                             <?php
                                 switch($orderby){
                                     case 1:
-                                        $sql = "SELECT * FROM note WHERE user_ID = '$id' ORDER BY CAST(note_title AS UNSIGNED), note_title ASC LIMIT ".$start.", ".$rowperpage;
+                                        $sql = "SELECT note_id, note_title, note_lastsave, user.user_username FROM note JOIN user ON note.user_ID = user.user_ID ORDER BY CAST(note_title AS UNSIGNED), note_title ASC LIMIT ".$start.", ".$rowperpage;
                                         echo '<li class="breadcrumb-item active" aria-current="page">A-Z</li>';
-                                        echo '<li class="breadcrumb-item"><a href="?order=2&id='.$id.'">Newest</a></li>';
-                                        echo '<li class="breadcrumb-item"><a href="?order=3&id='.$id.'">Oldest</a></li>';
+                                        echo '<li class="breadcrumb-item"><a href="?order=2">Newest</a></li>';
+                                        echo '<li class="breadcrumb-item"><a href="?order=3">Oldest</a></li>';
                                         break;
                                     case 2:
-                                        $sql = "SELECT * FROM note WHERE user_ID = '$id' ORDER BY note_lastsave DESC LIMIT ".$start.", ".$rowperpage;
-                                        echo '<li class="breadcrumb-item active" aria-current="page"><a href="?order=1&id='.$id.'">A-Z</a></li>';
+                                        $sql = "SELECT note_id, note_title, note_lastsave, user.user_username FROM note JOIN user ORDER BY note_lastsave DESC LIMIT ".$start.", ".$rowperpage;
+                                        echo '<li class="breadcrumb-item active" aria-current="page"><a href="?order=1">A-Z</a></li>';
                                         echo '<li class="breadcrumb-item">Newest</li>';
-                                        echo '<li class="breadcrumb-item"><a href="?order=3&id='.$id.'">Oldest</a></li>';
+                                        echo '<li class="breadcrumb-item"><a href="?order=3">Oldest</a></li>';
                                         break;
                                     case 3:
-                                        $sql = "SELECT * FROM note WHERE user_ID = '$id' ORDER BY note_lastsave ASC LIMIT ".$start.", ".$rowperpage;;
-                                        echo '<li class="breadcrumb-item active" aria-current="page"><a href="?order=1&id='.$id.'">A-Z</a></li>';
-                                        echo '<li class="breadcrumb-item"><a href="?order=2&id='.$id.'">Newest</a></li>';
+                                        $sql = "SELECT note_id, note_title, note_lastsave, user.user_username FROM note JOIN user ORDER BY note_lastsave ASC LIMIT ".$start.", ".$rowperpage;;
+                                        echo '<li class="breadcrumb-item active" aria-current="page"><a href="?order=1">A-Z</a></li>';
+                                        echo '<li class="breadcrumb-item"><a href="?order=2">Newest</a></li>';
                                         echo '<li class="breadcrumb-item">Oldest</li>';
                                         break;
                                 }
@@ -123,8 +116,9 @@ $total_page = ceil($total_row / $rowperpage);
                         <thead>
                             <tr>
                                 <th style="width: 6%;" scope="col">No</th>
-                                <th style="width: 60%;" scope="col">Title</th>
-                                <th scope="col">Last Saved</th>
+                                <th style="width: 40%;" scope="col">Title</th>
+                                <th style="width: 15%" scope="col">Last Saved</th>
+                                <th style="width: 15%" scope="col">User</th>
                                 <th style="width: 15%;" scope="col">Action</th>
                             </tr>
                         </thead>
@@ -137,6 +131,7 @@ $total_page = ceil($total_row / $rowperpage);
                                     echo '<th scope="row">'.($num).'</th>';
                                     echo '<td class="textoverflowlist"><span>'.$row["note_title"].'</span></td>';
                                     echo '<td><span>'.date("j M Y G:i:s a" , strtotime($row["note_lastsave"])).'</span></td>';
+                                    echo '<td class="textoverflowlist"><span>'.$row["user_username"].'</span></td>';
                                     echo '<td><a href="../view.php?id='.$row["note_id"].'" target="_blank" class="btn btn-primary gridbutton" role="button">View</a>
                                     <button class="btn btn-danger gridbutton" data-bs-toggle="modal" data-bs-target="#deleteError" onclick="deleteAction('.$row["note_id"].');">Delete</a>
                                     </td>';
@@ -206,5 +201,4 @@ if(isset($_POST["btnDel"])){
         mysqli_error($connect);
     }
 }
-
 ?>
