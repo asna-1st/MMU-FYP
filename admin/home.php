@@ -59,6 +59,9 @@ mysqli_close($connect);
                         <li class="nav-item">
                             <a class="nav-link" aria-current="page" href="list.php">Notes</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" aria-current="page" href="admin.php">Admin</a>
+                        </li>
                     </ul>
                     <ul class="navbar-nav ms-auto mb-lg-0">
                         <li class="nav-item dropdown">

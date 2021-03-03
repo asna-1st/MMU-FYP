@@ -5,6 +5,7 @@
 <title>Register</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+<link href="./design.css" rel="stylesheet">
 <style>
 #email{
     border-bottom-left-radius: 0px;
@@ -32,22 +33,37 @@
     border-top-right-radius: 0px;
     border-top: 0px;
 }
-
-body {
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
-    top: 0px;
-    right: 0px;
-    left: 0px;
-    bottom: 0px;
-    position: absolute;
-}
 </style>
 </head>
 
 <body>
-    <div style="max-width:300px;margin:auto;" class="login-form text-center row h-100 justify-content-center align-items-center">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Notepad</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.php">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="public.php">Public Note</a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav ms-auto mb-lg-0">
+                <li class="nav-item">
+                        <a class="nav-link" href="signin.php">Sign In</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">Register</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div style="max-width:300px;margin:auto;margin-top:10%;" class="login-form text-center row h-100 justify-content-center align-items-center">
     <form name="register-page" method="post" action="">
     <label class="h3 mb-3 font-weight-normal">Registration</label>
         <input class="form-control" type="email" id="email" name="email" placeholder="Email" required autofocus>
@@ -58,6 +74,12 @@ body {
             <button name="btn-register" id="btn-register" type="submit" class="btn btn-lg btn-primary btn-block">Register</button>
         </div>
     </form>
+    </div>
+    <footer class="footer">
+        <div class="container">
+            <span class="text-muted">Temp footer for moment</span>
+        </div>
+    </footer>
 </body>
 
 </html>

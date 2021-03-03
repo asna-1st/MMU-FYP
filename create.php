@@ -1,4 +1,5 @@
 <?php
+    include("./dbconnect.php");
     session_start();
 
     $username = $_SESSION["username"];
@@ -60,11 +61,24 @@
         <div class="container" style="padding-top: 20px;">
             <form name="content-form" method="post" action="create.php">
                 <div class="row">
-                    <div class="col-md-auto">
+                    <div class="col-md-5">
                         <div class="input-group" style="margin-bottom: 10px;">
-                            <input type="text" size="100" name="titleText" id="titleText" placeholder="Title" class="form-control"/>
+                            <input type="text" size="50" name="titleText" id="titleText" placeholder="Title" class="form-control"/>
                             <button onclick="emptyTitle(event); getContent();" style="font-size: 0.8em;" type="submit" name="btn-save" id="titleText" class="btn btn-success">Save</button>
                         </div>
+                    </div>
+                    <div class="col-md-5">
+                        <div class="input-group me-2">
+                                <label class="input-group-text" for="catN">Category</label>
+                                <select class="form-select" id="catN" name="catN">
+                                    <?php
+                                    $getR = mysqli_query($connect, "SELECT * FROM category");
+                                    while($row = mysqli_fetch_array($getR)){
+                                        echo '<option value="'.$row["id"].'">'.$row["name"].'</option>';
+                                    }
+                                    ?>
+                                </select>
+                            </div>
                     </div>
                     <div class="tool col-md-auto">
                         <div class="btn-toolbar" role="toolbar">
@@ -105,7 +119,8 @@
                             <div class="btn-group me-2" role="group">   
                                 <button type="button" class="btn btn-light" onclick="insertLink(prompt('Enter URL'));"><i class="fas fa-link"></i></button>
                                 <button type="button" class="btn btn-light" onclick="execCmd('unlink');"><i class="fas fa-unlink"></i></button>
-                                <button type="button" class="btn btn-light" onclick="execCommandArg('insertImage', prompt('Enter image URL'));"><i class="fas fa-file-image"></i></button>
+                                <button type="button" class="btn btn-light" id="inIm" name="inIm" onclick="document.getElementById('fileI').click();"><i class="fas fa-file-image"></i></button>
+                                <input type="file" name="fileI" id="fileI" onchange="insertImage()" hidden/>
                             </div>
                             <div class="input-group me-2">
                                 <label class="input-group-text" for="fontSizeSelect">Heading Size</label>
@@ -177,7 +192,6 @@
                 </div>
             </div>
         </div>
-
         <footer class="footer mt-auto clearfix bg-light">
             <div class="container">
                 <span class="text-muted">Temp footer for moment</span>
@@ -187,15 +201,15 @@
 </html>
 
 <?php
-include("./dbconnect.php");
 
 if(isset($_POST["btn-save"])){
     $title = $_POST["titleText"];
     $content = $_POST["noteContent"];
+    $catN = $_POST["catN"];
     $row = null;
     
     if($_POST["titleText"] != ""){
-        mysqli_query($connect, "INSERT INTO note (note_title, note_content, note_lastsave, user_id) VALUES ('$title', '$content', CURRENT_TIMESTAMP, '$id')");
+        mysqli_query($connect, "INSERT INTO note (note_title, note_content, note_lastsave, category_ID, user_id) VALUES ('$title', '$content', CURRENT_TIMESTAMP, $catN,'$id')");
         echo '<script>window.location.href = "home.php"</script>';
     }
 }

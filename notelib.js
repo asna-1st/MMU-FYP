@@ -25,6 +25,22 @@ function insertLink(link) {
   }
 }
 
+function insertImage(){
+  var file = document.getElementById('fileI').files;
+  if(file.length > 0){
+    var fileReader = new FileReader();
+    var src = null;
+
+    fileReader.onload = function (event) {
+      src = event.target.result;
+      richTextArea.document.execCommand('insertImage', false, event.target.result);
+      //console.log(src);
+      //document.write(src);
+    };
+    fileReader.readAsDataURL(file[0]);
+  }
+}
+
 /* function getContent() {
   var frameObj = document.getElementById("richTextArea");
   var frameContent = frameObj.contentWindow.document.body.innerHTML;
