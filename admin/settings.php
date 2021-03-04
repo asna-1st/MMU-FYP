@@ -52,6 +52,9 @@ if(!isset($_SESSION["admin_loggedin"]) || $_SESSION["admin_loggedin"] !== true){
                         <li class="nav-item">
                             <a class="nav-link" href="list.php">Notes</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="ticket.php">Ticket</a>
+                        </li>
                     </ul>
                     <ul class="navbar-nav ms-auto mb-lg-0">
                         <li class="nav-item dropdown">

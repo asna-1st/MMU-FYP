@@ -20,7 +20,7 @@
                             <a class="nav-link active" aria-current="page" href="#">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="create.php">Public Note</a>
+                            <a class="nav-link" href="public.php">Public Note</a>
                         </li>
                     </ul>
                     <ul class="navbar-nav ms-auto mb-lg-0">

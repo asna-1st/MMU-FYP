@@ -62,6 +62,9 @@ $total_page = ceil($total_row / $rowperpage);
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="page" href="list.php">Notes</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="ticket.php">Ticket</a>
+                        </li>
                     </ul>
                     <ul class="navbar-nav ms-auto mb-lg-0">
                         <li class="nav-item dropdown">

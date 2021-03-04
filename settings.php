@@ -52,6 +52,9 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
                         <li class="nav-item">
                             <a class="nav-link" aria-current="page" href="list.php">Notes</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="public.php">Public Note</a>
+                        </li>
                     </ul>
                     <ul class="navbar-nav ms-auto mb-lg-0">
                         <li class="nav-item dropdown">
@@ -59,7 +62,8 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
                                 <?php echo $username; ?>
                             </a>
                             <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="settings.php">Settings</a></li>
+                                <li><a class="dropdown-item" href="#">Settings</a></li>
+                                <li><a class="dropdown-item" href="ticket.php">Ticket</a></li>
                                 <li><a class="dropdown-item" href="logout.php">Logout</a></li>
                             </ul>
                         </li>
@@ -71,6 +75,13 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
             <div class="row">
                 <div class="col-md-12" style="margin-top: 20px;">
                     <h1>Settings</h1>
+                </div>
+                <div class="col-md-5" style="border: 1px solid #e5e5e5; margin-top: 30px; border-radius: 8px; margin-right:30px;">
+                    <form method="POST" style="margin-top: 20px;" action="settings.php" enctype="multipart/form-data">
+                        <p style="font-weight: bold; margin-bottom: 30px; font-size: 20px;">Update Profile Picture</p>
+                        <input class="form-control" accept="image/*" type="file" id="formFile" name="formFile">
+                        <button style="margin: 10px; margin-top: 80px;" class="btn btn-primary float-end" type="submit" id="btnUpdImg" name="btnUpdImg">Update</button>
+                    </form>
                 </div>
                 <div class="col-md-5" style="border: 1px solid #e5e5e5; margin-top: 30px; border-radius: 8px;">
                     <form method="POST" style="margin-top: 20px;" action="settings.php">
@@ -101,7 +112,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
                                 <input class="form-control mb-2" type="email" name="nEmail" required>
                             </div>
                         </div>
-                        <button style="margin-top: 10px" class="btn btn-primary float-end" type="submit" name="btnResetEmail">Reset</button>
+                        <button style="margin: 10px;" class="btn btn-primary float-end" type="submit" name="btnResetEmail">Reset</button>
                     </form>
                 </div>
             </div>
@@ -164,7 +175,7 @@ if(isset($_POST["btnResetPass"])){
 if(isset($_POST["btnResetEmail"])){
     $email = $_POST["nEmail"];
 
-    if(mysqli_query($connect, "UPDATE admin SET user_email = '$email' WHERE user_ID = '$id'")){
+    if(mysqli_query($connect, "UPDATE user SET user_email = '$email' WHERE user_ID = '$id'")){
         echo '<script>window.location.href = "settings.php";</script>';
     } else {
         mysqli_error($connect);
@@ -181,6 +192,25 @@ if(isset($_POST["btnDel"])){
     } else {
         mysqli_error($connect);
         echo "Error Occurred!";
+    }
+}
+
+if(isset($_POST["btnUpdImg"])){
+    if(isset($_FILES["formFile"]["tmp_name"])){
+        $filename = $_FILES["formFile"]["tmp_name"];
+        $file_ext = pathinfo($filename, PATHINFO_EXTENSION);
+        $file_ext = strtolower($file_ext);
+
+        $imgData = base64_encode(file_get_contents($filename));
+        $src = 'data: '.mime_content_type($filename).';base64,'.$imgData;
+
+        if(mysqli_query($connect, "UPDATE user SET image = '$src' WHERE user_ID = '$id'")){
+            echo '<script>window.location.href = "settings.php";</script>';
+            exit;
+        } else {
+            mysqli_error($connect);
+            echo "Error Occurred!";
+        }
     }
 }
 ?>

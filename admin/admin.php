@@ -27,7 +27,7 @@ if($result){
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Home Page</title>
+        <title>Admin</title>
         <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
@@ -43,6 +43,23 @@ if($result){
                     });
                     return false;
                 }
+            }
+
+            function checkPasswordEdit(){
+                var pass = document.getElementById("adminPassEdit").value;
+                var repass = document.getElementById("adminRePassEdit").value;
+
+                if(pass != repass){
+                    event.preventDefault();
+                    $("#passwordAlertEdit").fadeTo(4000, 500).slideUp(500, function(){
+                        $("#passwordAlertEdit").slideUp(500);
+                    });
+                    return false;
+                }
+            }
+
+            function editAdmin(id){
+                document.getElementById("adminEditID").value = id;
             }
         </script>
     </head>
@@ -66,6 +83,9 @@ if($result){
                         </li>
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="page" href="admin.php">Admin</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="ticket.php">Ticket</a>
                         </li>
                     </ul>
                     <ul class="navbar-nav ms-auto mb-lg-0">
@@ -94,16 +114,15 @@ if($result){
                     <table class="table table-hover table-bordered justify-content-center">
                         <thead>
                             <tr>
-                            <th style="width: 3%;" scope="col">No</th>
-                                <th style="width: 20%;" scope="col">Title</th>
-                                <th style="width: 10%;" scope="col">Category</th>
-                                <th style="width: 8%;" scope="col">Last Saved</th>
-                                <th style="width: 10.3%;" scope="col">Action</th>
+                                <th style="width: 4%;" scope="col">No</th>
+                                <th style="width: 20%;" scope="col">Username</th>
+                                <th style="width: 20%" scope="col">Email</th>
+                                <th style="width: 15%;" scope="col">Action</th>
                             </tr>
                         </thead>
                         <tbody class="align-middle">
                             <?php
-                                $data = mysqli_query($connect, "SELECT * FROM admin WHERE admin_id NOT IN '$id'");
+                                $data = mysqli_query($connect, "SELECT * FROM admin WHERE admin_id NOT IN (1)");
                                 $num = $start + 1;
                                 if($data){
                                     while($row = mysqli_fetch_array($data)){
@@ -111,7 +130,7 @@ if($result){
                                         echo '<th scope="row">'.($num).'</th>';
                                         echo '<td class="textoverflowlist"><span>'.$row["admin_username"].'</span></td>';
                                         echo '<td class="textoverflowlist"><span>'.$row["admin_email"].'</span></td>';
-                                        echo '<td><button class="btn btn-primary gridbutton" data-bs-toggle="modal" data-bs-target="#editAdmin">Edit</a>
+                                        echo '<td><button onclick="editAdmin('.$row["admin_id"].')" class="btn btn-primary gridbutton" data-bs-toggle="modal" data-bs-target="#editAdmin">Edit</a>
                                         <button class="btn btn-danger gridbutton" data-bs-toggle="modal" data-bs-target="#removeAdmin">Remove</a>
                                         </td>';
                                         echo '</tr>';
@@ -133,6 +152,7 @@ if($result){
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <form id="editAdminForm" name="editAdminForm" action="admin.php" method="post">
+                            <input type="hidden" name="adminEditID" id="adminEditID"/>
                             <div class="modal-body">
                                 <div id="passwordAlertEdit" class="alert alert-danger collapse animate fade" role="alert">
                                     Password not match!
@@ -141,25 +161,21 @@ if($result){
                                     Password not match!
                                 </div>
                                 <div class="mb-0">
-                                    <label class="col-form-label">Username:</label>
-                                    <input type="text" class="form-control" name="username:" id="username" readonly/>
-                                </div>
-                                <div class="mb-0">
                                     <label class="col-form-label">Email:</label>
-                                    <input type="email" class="form-control" name="userEmail" id="userEmail"/>
+                                    <input type="email" class="form-control" name="adminEmailEdit" id="adminEmailEdit"/>
                                 </div>
                                 <div class="mb-0">
                                     <label class="col-form-label">Password:</label>
-                                    <input type="password" class="form-control" name="password" id="password" />
+                                    <input type="password" class="form-control" name="adminPassEdit" id="adminPassEdit" />
                                 </div>
                                 <div class="mb-0">
                                     <label class="col-form-label">Retype Passweord:</label>
-                                    <input type="password" class="form-control" name="repassword" id="repassword" />
+                                    <input type="password" class="form-control" name="adminRePassEdit" id="adminRePassEdit" />
                                 </div>
                                 <input type="hidden" name="userIDEdit" id="userIDEdit" />
                             </div>
                             <div class="modal-footer">
-                                <button type="submit" onclick="checkPassword();" name="btn-save-edit" class="btn btn-success">Yes</button>
+                                <button type="submit" onclick="checkPasswordEdit();" name="btn-save-edit" class="btn btn-success">Yes</button>
                                 <button type="button" class="btn btn-primary" data-bs-dismiss="modal">No</button>
                             </div>
                         </form>
@@ -167,11 +183,12 @@ if($result){
                 </div>
             </div>
         </div>
+        <!-- Modal -->
         <div class="modal fade" id="addAdmin" data-bs-toggle="modal" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="addAdminLabel" tabindex="-1" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="addAdminLabel">Edit User</h5>
+                            <h5 class="modal-title" id="addAdminLabel">Add User</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <form id="addAdminForm" name="addAdminForm" action="admin.php" method="post">
@@ -220,6 +237,25 @@ if(isset($_POST["btn-save-add"])){
     $username = $_POST["usernameAdd"];
     $email = $_POST["adminEmailAdd"];
     $pass = $_POST["passwordAdd"];
-    $repass = $_POST[""];
+    $repass = $_POST["repasswordAdd"];
+
+    if($repass == $pass){
+        if(mysqli_query($connect, "INSERT INTO admin (admin_username, admin_password, admin_email) VALUES ('$username', '$pass', '$email')")){
+            echo '<script>window.location.href = "admin.php"</script>';
+        }
+    }
+}
+
+if(isset($_POST["btn-save-edit"])){
+    $adminID = $_POST["userIDEdit"];
+    $email = $_POST["adminEmailEdit"];
+    $pass = $_POST["adminPassEdit"];
+    $repass = $_POST["adminRePassEdit"];
+
+    if($pass == $repass){
+        if(mysqli_query($connect, "UPDATE admin SET admin_password = '$pass', admin_email = '$email' WHERE admin_id = '$adminID'")){
+            echo '<script>window.location.href = "admin.php"</script>';
+        }
+    }
 }
 ?>
