@@ -2,6 +2,12 @@
 session_start();
 include("./dbconnect.php");
 
+$id = 0;
+if(isset($_SESSION["username"]) && isset($_SESSION["id"])){
+    $username = $_SESSION["username"];
+    $id = $_SESSION["id"];
+}
+
 if(isset($_GET["page"])){
     $pageno = $_GET["page"];
 } else {
@@ -24,7 +30,7 @@ $total_page = ceil($total_row / $rowperpage);
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Note List</title>
+        <title>Public Note</title>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
         <link href="./design.css" rel="stylesheet">
@@ -39,7 +45,9 @@ $total_page = ceil($total_row / $rowperpage);
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <div class="container-fluid">
                 <a class="navbar-brand" href="#">Notepad</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <?php
+                if($id == "0"){
+                    echo '<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -48,7 +56,7 @@ $total_page = ceil($total_row / $rowperpage);
                             <a class="nav-link" href="index.php">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="create.php">Public Note</a>
+                            <a class="nav-link active" aria-current="page" href="#">Public Note</a>
                         </li>
                     </ul>
                     <ul class="navbar-nav ms-auto mb-lg-0">
@@ -59,7 +67,41 @@ $total_page = ceil($total_row / $rowperpage);
                             <a class="nav-link" href="register.php">Register</a>
                         </li>
                     </ul>
-                </div>
+                </div>';
+                } else {
+                    echo '<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav mb-2 mb-lg-0">
+                            <li class="nav-item">
+                                <a class="nav-link" href="home.php">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="create.php">Create</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="list.php">Notes</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="page" href="public.php">Public Note</a>
+                            </li>
+                        </ul>
+                        <ul class="navbar-nav ms-auto mb-lg-0">
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    '.$username.
+                                '</a>
+                                <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown">
+                                    <li><a class="dropdown-item" href="settings.php">Settings</a></li>
+                                    <li><a class="dropdown-item" href="ticket.php">Ticket</a></li>
+                                    <li><a class="dropdown-item" href="logout.php">Logout</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>';
+                }
+                ?>
             </div>
         </nav>
 
@@ -75,19 +117,19 @@ $total_page = ceil($total_row / $rowperpage);
                             <?php
                                 switch($orderby){
                                     case 1:
-                                        $sql = "SELECT * FROM note JOIN category JOIN user WHERE note.user_ID = user.user_ID AND note.category_ID = category.id ORDER BY CAST(note_title AS UNSIGNED), note_title ASC LIMIT ".$start.", ".$rowperpage;
+                                        $sql = "SELECT * FROM note JOIN category JOIN user WHERE note.user_ID = user.user_ID AND note.category_ID = category.id AND note.user_ID NOT IN ($id) ORDER BY CAST(note_title AS UNSIGNED), note_title ASC LIMIT ".$start.", ".$rowperpage;
                                         echo '<li class="breadcrumb-item active" aria-current="page">A-Z</li>';
                                         echo '<li class="breadcrumb-item"><a href="?order=2">Newest</a></li>';
                                         echo '<li class="breadcrumb-item"><a href="?porder=3">Oldest</a></li>';
                                         break;
                                     case 2:
-                                        $sql = "SELECT * FROM note JOIN category JOIN user WHERE note.user_ID = user.user_ID AND note.category_ID = category.id ORDER BY note_lastsave DESC LIMIT ".$start.", ".$rowperpage;
+                                        $sql = "SELECT * FROM note JOIN category JOIN user WHERE note.user_ID = user.user_ID AND note.category_ID = category.id AND note.user_ID NOT IN ($id) ORDER BY note_lastsave DESC LIMIT ".$start.", ".$rowperpage;
                                         echo '<li class="breadcrumb-item active" aria-current="page"><a href="?order=1">A-Z</a></li>';
                                         echo '<li class="breadcrumb-item">Newest</li>';
                                         echo '<li class="breadcrumb-item"><a href="?order=3">Oldest</a></li>';
                                         break;
                                     case 3:
-                                        $sql = "SELECT * FROM note JOIN category JOIN user WHERE note.user_ID = user.user_ID AND note.category_ID = category.id ORDER BY note_lastsave ASC LIMIT ".$start.", ".$rowperpage;;
+                                        $sql = "SELECT * FROM note JOIN category JOIN user WHERE note.user_ID = user.user_ID AND note.category_ID = category.id AND note.user_ID NOT IN ($id) ORDER BY note_lastsave ASC LIMIT ".$start.", ".$rowperpage;;
                                         echo '<li class="breadcrumb-item active" aria-current="page"><a href="?order=1">A-Z</a></li>';
                                         echo '<li class="breadcrumb-item"><a href="?order=2">Newest</a></li>';
                                         echo '<li class="breadcrumb-item">Oldest</li>';

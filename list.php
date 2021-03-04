@@ -61,6 +61,9 @@ $total_page = ceil($total_row / $rowperpage);
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="page" href="list.php">Notes</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="public.php">Public Note</a>
+                        </li>
                     </ul>
                     <ul class="navbar-nav ms-auto mb-lg-0">
                         <li class="nav-item dropdown">
@@ -68,7 +71,8 @@ $total_page = ceil($total_row / $rowperpage);
                                 <?php echo $username; ?>
                             </a>
                             <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="#">Settings</a></li>
+                                <li><a class="dropdown-item" href="settings.php">Settings</a></li>
+                                <li><a class="dropdown-item" href="ticket.php">Ticket</a></li>
                                 <li><a class="dropdown-item" href="logout.php">Logout</a></li>
                             </ul>
                         </li>
@@ -89,19 +93,19 @@ $total_page = ceil($total_row / $rowperpage);
                             <?php
                                 switch($orderby){
                                     case 1:
-                                        $sql = "SELECT * FROM note JOIN category WHERE user_ID = ".$id." ORDER BY CAST(note_title AS UNSIGNED), note_title ASC LIMIT ".$start.", ".$rowperpage;
+                                        $sql = "SELECT * FROM note JOIN category WHERE user_ID = ".$id." AND category_ID = category.id ORDER BY CAST(note_title AS UNSIGNED), note_title ASC LIMIT ".$start.", ".$rowperpage;
                                         echo '<li class="breadcrumb-item active" aria-current="page">A-Z</li>';
                                         echo '<li class="breadcrumb-item"><a href="?order=2">Newest</a></li>';
                                         echo '<li class="breadcrumb-item"><a href="?porder=3">Oldest</a></li>';
                                         break;
                                     case 2:
-                                        $sql = "SELECT * FROM note JOIN category WHERE user_ID = '$id' ORDER BY note_lastsave DESC LIMIT ".$start.", ".$rowperpage;
+                                        $sql = "SELECT * FROM note JOIN category WHERE user_ID = '$id' AND category_ID = category.id ORDER BY note_lastsave DESC LIMIT ".$start.", ".$rowperpage;
                                         echo '<li class="breadcrumb-item active" aria-current="page"><a href="?order=1">A-Z</a></li>';
                                         echo '<li class="breadcrumb-item">Newest</li>';
                                         echo '<li class="breadcrumb-item"><a href="?order=3">Oldest</a></li>';
                                         break;
                                     case 3:
-                                        $sql = "SELECT * FROM note JOIN category WHERE user_ID = '$id' ORDER BY note_lastsave ASC LIMIT ".$start.", ".$rowperpage;;
+                                        $sql = "SELECT * FROM note JOIN category WHERE user_ID = '$id' AND category_ID = category.id ORDER BY note_lastsave ASC LIMIT ".$start.", ".$rowperpage;;
                                         echo '<li class="breadcrumb-item active" aria-current="page"><a href="?order=1">A-Z</a></li>';
                                         echo '<li class="breadcrumb-item"><a href="?order=2">Newest</a></li>';
                                         echo '<li class="breadcrumb-item">Oldest</li>';

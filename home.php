@@ -9,6 +9,12 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
     header("location: index.php");
     exit;
 }
+
+$result = mysqli_query($connect, "SELECT * FROM user WHERE user_ID = '$id'");
+while($row = mysqli_fetch_array($result)){
+    $userN = $row["user_username"];
+    $userI = $row["image"];
+}
 ?>
 
 <!DOCTYPE html>
@@ -38,6 +44,9 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
                         <li class="nav-item">
                             <a class="nav-link" aria-current="page" href="list.php">Notes</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="public.php">Public Note</a>
+                        </li>
                     </ul>
                     <ul class="navbar-nav ms-auto mb-lg-0">
                         <li class="nav-item dropdown">
@@ -45,7 +54,8 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
                                 <?php echo $username; ?>
                             </a>
                             <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="#">Settings</a></li>
+                                <li><a class="dropdown-item" href="settings.php">Settings</a></li>
+                                <li><a class="dropdown-item" href="ticket.php">Ticket</a></li>
                                 <li><a class="dropdown-item" href="logout.php">Logout</a></li>
                             </ul>
                         </li>
@@ -56,7 +66,10 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
         <div class="container">
             <div class="row">
                 <div class="col-md-8" style="margin-top: 30px;">
-                    <h1>Welcome <?php echo $username ?>!</h1>
+                    <div class="d-flex align-items-center">
+                        <img src="<?php echo $userI; ?>" style="margin-right:15px;" height="100" class="rounded-circle float-start mr-2">
+                        <h1>Welcome <?php echo $userN ?>!</h1>
+                    </div>
                 </div>
             </div>
             <div class="row" style="margin-top: 50px;">

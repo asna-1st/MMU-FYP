@@ -143,13 +143,16 @@ span.posted-by {
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav mb-2 mb-lg-0">
                             <li class="nav-item">
-                                <a class="nav-link" aria-current="page" href="home.php">Home</a>
+                                <a class="nav-link" href="home.php">Home</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link active" aria-current="page" href="#">Create</a>
+                                <a class="nav-link" href="create.php">Create</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" aria-current="page" href="list.php">Notes</a>
+                                <a class="nav-link" href="list.php">Notes</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="public.php">Public Note</a>
                             </li>
                         </ul>
                         <ul class="navbar-nav ms-auto mb-lg-0">
@@ -158,7 +161,8 @@ span.posted-by {
                                     '.$username.
                                 '</a>
                                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <li><a class="dropdown-item" href="#">Settings</a></li>
+                                    <li><a class="dropdown-item" href="settings.php">Settings</a></li>
+                                    <li><a class="dropdown-item" href="ticket.php">Ticket</a></li>
                                     <li><a class="dropdown-item" href="logout.php">Logout</a></li>
                                 </ul>
                             </li>
@@ -173,8 +177,8 @@ span.posted-by {
                 <div class="col-md-auto" style="margin-top: 20px; margin-bottom: 5px;">
                     <p>Title: <?php echo $noteTitle; ?></p>
                     <?php
-                        if(!isset($id)) {
-                            echo '<p>Created By: '.$noteUser.'</p>';
+                        if(!isset($id) || ($id != $noteUserID)) {
+                            echo '<p><span>Created By: </span><a style="text-align: right;" href="user.php?id='.$noteUserID.'">'.$noteUser.'</a></p>';
                         }
                     ?>
                     <p>Last Saved: <?php echo $noteLastSaved; ?></p>

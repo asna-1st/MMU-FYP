@@ -42,6 +42,9 @@
                         <li class="nav-item">
                             <a class="nav-link" aria-current="page" href="list.php">Notes</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="public.php">Public Note</a>
+                        </li>
                     </ul>
                     <ul class="navbar-nav ms-auto mb-lg-0">
                         <li class="nav-item dropdown">
@@ -50,6 +53,7 @@
                             </a>
                             <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown">
                                 <li><a class="dropdown-item" href="#">Settings</a></li>
+                                <li><a class="dropdown-item" href="ticket.php">Ticket</a></li>
                                 <li><a class="dropdown-item" href="logout.php">Logout</a></li>
                             </ul>
                         </li>
