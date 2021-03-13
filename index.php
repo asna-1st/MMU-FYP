@@ -6,8 +6,9 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
         <link href="./design.css" rel="stylesheet">
     </head>
-
-    <body>
+	
+	<!--	HEADER/NAVBAR				-->
+    <body class="text-center">
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <div class="container-fluid">
                 <a class="navbar-brand" href="#">Notepad</a>
@@ -24,12 +25,12 @@
                         </li>
                     </ul>
                     <ul class="navbar-nav ms-auto mb-lg-0">
-                    <li class="nav-item">
+						<li class="nav-item">
                             <a class="nav-link" href="signin.php">Sign In</a>
-                        </li>
-                        <li class="nav-item">
+						</li>
+						<li class="nav-item">
                             <a class="nav-link" href="register.php">Register</a>
-                        </li>
+						</li>
                     </ul>
                 </div>
             </div>
@@ -37,36 +38,18 @@
 		
 		<!--	MAIN CENTRE PAGE	-->
 		<div class="container">
-			<div class="row">
-				<div class="col">
-					1 of 2
-				</div>
-				<div class="col">
-					2 of 2
-				</div>
-			</div>
-			<div class="row">
-				<div class="col">
-					1 of 3
-				</div>
-				<div class="col">
-					2 of 3
-				</div>
-				<div class="col">
-					3 of 3
+			<div class="row justify-content-md-center">
+				<div class="col col-lg-5">
+					<main role="main" class="inner cover">
+						<h1 class="cover-heading">Welcome To Your Notepad</h1>
+						<p class="lead">Create, edit, and share all of your notes in this easy-to-use application. </p>
+						<p class="lead">
+							<a href="#" class="btn btn-lg btn-secondary">Learn more</a>
+						</p>
+					</main>
 				</div>
 			</div>
 		</div>
-		
-		<!--
-        <div class="container">
-            <div class="row">
-                <div class="col-md-auto">
-                    <p>Temp for a moment</p>
-                </div>
-            </div>
-        </div>
-		-->
 		
 		<!--	FOOTER				-->
         <footer class="footer">
