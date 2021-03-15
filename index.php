@@ -37,12 +37,12 @@
         </nav>
 		
 		<!--	MAIN CENTRE PAGE	-->
-		<div class="container">
+		<div class="containermain">
 			<div class="row justify-content-md-center">
 				<div class="col col-lg-5">
 					<main role="main" class="inner cover">
 						<h1 class="cover-heading">Welcome To Your Notepad</h1>
-						<p class="lead">Create, edit, and share all of your notes in this easy-to-use application. </p>
+						<p class="lead">Create, edit, and share all of your notes in this easy-to-use application.</p>
 						<p class="lead">
 							<a href="#" class="btn btn-lg btn-secondary">Learn more</a>
 						</p>
@@ -53,8 +53,8 @@
 		
 		<!--	FOOTER				-->
         <footer class="footer">
-            <div class="container">
-                <span class="text-muted">Temp footer for moment</span>
+            <div class="footercontainer">
+                <span class="text-muted fst-italic">Powered by Bootstrap</span>
             </div>
         </footer>
     </body>
