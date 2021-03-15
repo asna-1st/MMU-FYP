@@ -58,6 +58,11 @@ $total_page = ceil($total_row / $rowperpage);
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="page" href="#">Public Note</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="about.php">About Us</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="contact.php">Contact Us</a>
                     </ul>
                     <ul class="navbar-nav ms-auto mb-lg-0">
                     <li class="nav-item">
@@ -108,7 +113,7 @@ $total_page = ceil($total_row / $rowperpage);
         <div class="container justify-content-center">
             <div class="row">
                 <div class="col-md-8" style="margin-top: 20px; margin-bottom: 10px;">
-                    <h1>Public Notes</h1>
+                    <h1>Public Note</h1>
                 </div>
                 <div class="col-md-12">
                     <nav style="--bs-breadcrumb-divider: none;" aria-label="breadcrumb">
@@ -210,10 +215,8 @@ $total_page = ceil($total_row / $rowperpage);
             </div>
         </div>
 
-        <footer class="footer">
-            <div class="container">
-                <span class="text-muted">Temp footer for moment</span>
-            </div>
-        </footer>
+        <?php
+        include("./footer.php")
+        ?>
     </body>
 </html>

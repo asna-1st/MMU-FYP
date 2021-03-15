@@ -5,6 +5,7 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
         <link href="./design.css" rel="stylesheet">
+        <link href="./index.css" rel="stylesheet">
     </head>
 	
 	<!--	HEADER/NAVBAR				-->
@@ -22,6 +23,12 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="public.php">Public Note</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="about.php">About Us</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="contact.php">Contact Us</a>
                         </li>
                     </ul>
                     <ul class="navbar-nav ms-auto mb-lg-0">
@@ -43,19 +50,14 @@
 					<main role="main" class="inner cover">
 						<h1 class="cover-heading">Welcome To Your Notepad</h1>
 						<p class="lead">Create, edit, and share all of your notes in this easy-to-use application.</p>
-						<p class="lead">
-							<a href="#" class="btn btn-lg btn-secondary">Learn more</a>
-						</p>
 					</main>
 				</div>
 			</div>
 		</div>
 		
 		<!--	FOOTER				-->
-        <footer class="footer">
-            <div class="footercontainer">
-                <span class="text-muted fst-italic">Powered by Bootstrap</span>
-            </div>
-        </footer>
+        <?php
+        include("./footer.php")
+        ?>
     </body>
 </html>

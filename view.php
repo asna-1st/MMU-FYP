@@ -315,10 +315,8 @@ span.posted-by {
                 </script>
             </div>
         </div>
-        <footer class="footer mt-auto clearfix bg-light">
-            <div class="container">
-                <span class="text-muted">Temp footer for moment</span>
-            </div>
-        </footer>
+        <?php
+        include("./footer.php")
+        ?>
     </body>
 </html>

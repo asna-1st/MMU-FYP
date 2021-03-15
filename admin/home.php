@@ -108,10 +108,8 @@ mysqli_close($connect);
                 </div>
             </div>
         </div>
-        <footer class="footer">
-            <div class="container">
-                <span class="text-muted">Temp footer for moment</span>
-            </div>
-        </footer>
+        <?php
+        include("../footer.php")
+        ?>
     </body>
 </html>

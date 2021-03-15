@@ -210,7 +210,11 @@
 
         <footer class="footer mt-auto clearfix bg-light">
             <div class="container">
-                <span class="text-muted">Temp footer for moment</span>
+                <span class="text-muted">Powered by Bootstrap</span>
+                <div class="float-end">
+                    <a class="text-muted" style="text-decoration: none;" href="about.php">About Us</a>&nbsp
+                    <a class="text-muted" style="text-decoration: none;" href="contact.php">Contact Us</a>
+                </div>
             </div>
         </footer>
     </body>

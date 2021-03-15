@@ -4,23 +4,9 @@ html {
 }
 
 body {
-	margin: 0;
-	width: 100%;
-	height: 100vh;
-	color: #fff;
-	background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
-	background-size: 400% 400%;
-	-webkit-animation: gradientBG 10s ease infinite;
-			animation: gradientBG 10s ease infinite;
+	margin-bottom: 60px;
     overflow: scroll-y;
     overflow-x: hidden;
-}
-
-.containermain {
-	width: 100%;
-	position: sticky;
-	top: 40%;
-	text-align: center;
 }
 
 .footer {
@@ -31,11 +17,6 @@ body {
     line-height: 60px;
     color: black;
     background-color: #f5f5f5;
-}
-
-.footercontainer {
-	padding-left: 50px;
-	text-align: left;
 }
 
 .textoverflow {
@@ -66,27 +47,4 @@ body {
 
 .gridbutton {
     margin: 2px;
-}
-
-@-webkit-keyframes gradientBG {
-	0% {
-		background-position: 0% 50%;
-	}
-	50% {
-		background-position: 100% 50%;
-	}
-	100% {
-		background-position: 0% 50%;
-	}
-}
-@keyframes gradientBG {
-	0% {
-		background-position: 0% 50%;
-	}
-	50% {
-		background-position: 100% 50%;
-	}
-	100% {
-		background-position: 0% 50%;
-	}
 }

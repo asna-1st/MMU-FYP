@@ -111,10 +111,8 @@ while($row = mysqli_fetch_array($result)){
             </div>
         </div>
 
-        <footer class="footer">
-            <div class="container">
-                <span class="text-muted">Temp footer for moment</span>
-            </div>
-        </footer>
+        <?php
+        include("./footer.php")
+        ?>
     </body>
 </html>

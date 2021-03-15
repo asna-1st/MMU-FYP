@@ -40,32 +40,6 @@ body {
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">Notepad</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="public.php">Public Note</a>
-                    </li>
-                </ul>
-                <ul class="navbar-nav ms-auto mb-lg-0">
-                <li class="nav-item">
-                        <a class="nav-link" href="signin.php">Sign In</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="register.php">Register</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
     <div style="max-width:300px;margin:auto;" class="login-form text-center row h-100 justify-content-center align-items-center">
     <form name="signin-page" method="post" action="signin.php">
     <label class="h3 mb-3 font-weight-normal">Please Sign In</label>
