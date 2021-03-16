@@ -85,6 +85,9 @@ if($result){
                             <a class="nav-link active" aria-current="page" href="admin.php">Admin</a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link" href="category.php">Category</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" href="ticket.php">Ticket</a>
                         </li>
                     </ul>
@@ -94,7 +97,7 @@ if($result){
                                 <?php echo $username; ?>
                             </a>
                             <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="#">Settings</a></li>
+                                <li><a class="dropdown-item" href="settings.php">Settings</a></li>
                                 <li><a class="dropdown-item" href="../logout.php">Logout</a></li>
                             </ul>
                         </li>

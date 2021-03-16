@@ -160,7 +160,7 @@ span.posted-by {
                                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     '.$username.
                                 '</a>
-                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown">
                                     <li><a class="dropdown-item" href="settings.php">Settings</a></li>
                                     <li><a class="dropdown-item" href="ticket.php">Ticket</a></li>
                                     <li><a class="dropdown-item" href="logout.php">Logout</a></li>

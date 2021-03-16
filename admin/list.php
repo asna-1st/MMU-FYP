@@ -63,6 +63,12 @@ $total_page = ceil($total_row / $rowperpage);
                             <a class="nav-link active" aria-current="page" href="list.php">Notes</a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link" aria-current="page" href="admin.php">Admin</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="category.php">Category</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" href="ticket.php">Ticket</a>
                         </li>
                     </ul>
@@ -72,7 +78,7 @@ $total_page = ceil($total_row / $rowperpage);
                                 <?php echo $username; ?>
                             </a>
                             <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="#">Settings</a></li>
+                                <li><a class="dropdown-item" href="settings.php">Settings</a></li>
                                 <li><a class="dropdown-item" href="../logout.php">Logout</a></li>
                             </ul>
                         </li>
@@ -98,13 +104,13 @@ $total_page = ceil($total_row / $rowperpage);
                                         echo '<li class="breadcrumb-item"><a href="?order=3">Oldest</a></li>';
                                         break;
                                     case 2:
-                                        $sql = "SELECT note_id, note_title, note_lastsave, user.user_username FROM note JOIN user ORDER BY note_lastsave DESC LIMIT ".$start.", ".$rowperpage;
+                                        $sql = "SELECT note_id, note_title, note_lastsave, user.user_username FROM note JOIN user ON note.user_ID = user.user_ID ORDER BY note_lastsave DESC LIMIT ".$start.", ".$rowperpage;
                                         echo '<li class="breadcrumb-item active" aria-current="page"><a href="?order=1">A-Z</a></li>';
                                         echo '<li class="breadcrumb-item">Newest</li>';
                                         echo '<li class="breadcrumb-item"><a href="?order=3">Oldest</a></li>';
                                         break;
                                     case 3:
-                                        $sql = "SELECT note_id, note_title, note_lastsave, user.user_username FROM note JOIN user ORDER BY note_lastsave ASC LIMIT ".$start.", ".$rowperpage;;
+                                        $sql = "SELECT note_id, note_title, note_lastsave, user.user_username FROM note JOIN user ON note.user_ID = user.user_ID ORDER BY note_lastsave ASC LIMIT ".$start.", ".$rowperpage;;
                                         echo '<li class="breadcrumb-item active" aria-current="page"><a href="?order=1">A-Z</a></li>';
                                         echo '<li class="breadcrumb-item"><a href="?order=2">Newest</a></li>';
                                         echo '<li class="breadcrumb-item">Oldest</li>';
@@ -133,7 +139,8 @@ $total_page = ceil($total_row / $rowperpage);
                                     echo '<tr>';
                                     echo '<th scope="row">'.($num).'</th>';
                                     echo '<td class="textoverflowlist"><span>'.$row["note_title"].'</span></td>';
-                                    echo '<td><span>'.date("j M Y G:i:s a" , strtotime($row["note_lastsave"])).'</span></td>';
+                                    //echo '<td><span>'.date("j M Y G:i:s a" , strtotime($row["note_lastsave"])).'</span></td>';
+                                    echo '<td><span>'.$row["note_lastsave"].'</span></td>';
                                     echo '<td class="textoverflowlist"><span>'.$row["user_username"].'</span></td>';
                                     echo '<td><a href="../view.php?id='.$row["note_id"].'" target="_blank" class="btn btn-primary gridbutton" role="button">View</a>
                                     <button class="btn btn-danger gridbutton" data-bs-toggle="modal" data-bs-target="#deleteError" onclick="deleteAction('.$row["note_id"].');">Delete</a>

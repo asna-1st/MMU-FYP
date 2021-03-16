@@ -6,6 +6,8 @@ body{
 	background-size: 400% 400%;
 	-webkit-animation: gradientBG 10s ease infinite;
 			animation: gradientBG 10s ease infinite;
+    overflow: scroll-y;
+    overflow-x: hidden;
 }
 
 .containermain {

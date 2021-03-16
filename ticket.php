@@ -53,13 +53,13 @@ $total_page = ceil($total_row / $rowperpage);
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link" aria-current="page" href="home.php">Home</a>
+                            <a class="nav-link" href="home.php">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" aria-current="page" href="create.php">Create</a>
+                            <a class="nav-link" href="create.php">Create</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="list.php">Notes</a>
+                            <a class="nav-link" href="list.php">Notes</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="public.php">Public Note</a>

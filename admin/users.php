@@ -81,13 +81,19 @@ $total_page = ceil($total_row / $rowperpage);
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link" aria-current="page" href="home.php">Home</a>
+                            <a class="nav-link" href="home.php">Home</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="page" href="users.php">Users</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" aria-current="page" href="list.php">Notes</a>
+                            <a class="nav-link" href="list.php">Notes</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="admin.php">Admin</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="category.php">Category</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="ticket.php">Ticket</a>
@@ -99,7 +105,7 @@ $total_page = ceil($total_row / $rowperpage);
                                 <?php echo $username; ?>
                             </a>
                             <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="#">Settings</a></li>
+                                <li><a class="dropdown-item" href="settings.php">Settings</a></li>
                                 <li><a class="dropdown-item" href="../logout.php">Logout</a></li>
                             </ul>
                         </li>

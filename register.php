@@ -51,6 +51,12 @@
                     <li class="nav-item">
                         <a class="nav-link" href="public.php">Public Note</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="about.php">About Us</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="contact.php">Contact Us</a>
+                    </li>
                 </ul>
                 <ul class="navbar-nav ms-auto mb-lg-0">
                 <li class="nav-item">

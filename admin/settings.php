@@ -53,6 +53,12 @@ if(!isset($_SESSION["admin_loggedin"]) || $_SESSION["admin_loggedin"] !== true){
                             <a class="nav-link" href="list.php">Notes</a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link" aria-current="page" href="admin.php">Admin</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="category.php">Category</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" href="ticket.php">Ticket</a>
                         </li>
                     </ul>
@@ -62,7 +68,7 @@ if(!isset($_SESSION["admin_loggedin"]) || $_SESSION["admin_loggedin"] !== true){
                                 <?php echo $username; ?>
                             </a>
                             <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="#">Settings</a></li>
+                                <li><a class="dropdown-item" href="settings.php">Settings</a></li>
                                 <li><a class="dropdown-item" href="../logout.php">Logout</a></li>
                             </ul>
                         </li>
