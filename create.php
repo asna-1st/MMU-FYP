@@ -124,7 +124,7 @@
                                 <button type="button" class="btn btn-light" onclick="insertLink(prompt('Enter URL'));"><i class="fas fa-link"></i></button>
                                 <button type="button" class="btn btn-light" onclick="execCmd('unlink');"><i class="fas fa-unlink"></i></button>
                                 <button type="button" class="btn btn-light" id="inIm" name="inIm" onclick="document.getElementById('fileI').click();"><i class="fas fa-file-image"></i></button>
-                                <input type="file" name="fileI" id="fileI" onchange="insertImage()" hidden/>
+                                <input type="file" name="fileI" id="fileI" accept="image/*" onchange="insertImage()" hidden/>
                             </div>
                             <div class="input-group me-2">
                                 <label class="input-group-text" for="fontSizeSelect">Heading Size</label>

@@ -147,7 +147,7 @@ $total_page = ceil($total_row / $rowperpage);
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <p id="contentTicket">Are you sure to delete this note?</p>
+                            <p id="contentTicket"></p>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
@@ -166,7 +166,7 @@ $total_page = ceil($total_row / $rowperpage);
                         <form id="subTicketForm" name="subTicketForm" action="ticket.php" method="post">
                             <div class="modal-body">
                                 <div class="mb-0">
-                                    <label class="col-form-label">Title:</label><label class="col-form-label">Title:</label>
+                                    <label class="col-form-label">Title:</label>
                                     <input type="text" class="form-control" name="ticTitle" id="ticTitle" required/>
                                 </div>
                                 <div class="mb-0">
